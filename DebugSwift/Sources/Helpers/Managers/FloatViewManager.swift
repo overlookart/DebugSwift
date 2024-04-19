@@ -101,12 +101,7 @@ extension FloatViewManager {
 }
 
 extension FloatViewManager: UINavigationControllerDelegate {
-    func navigationController(
-        _: UINavigationController,
-        animationControllerFor operation: UINavigationController.Operation,
-        from fromVC: UIViewController,
-        to toVC: UIViewController
-    ) -> UIViewControllerAnimatedTransitioning? {
+    func navigationController(_: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if operation == .push {
             guard toVC == floatViewController else { return nil }
             return TransitionPush()
@@ -121,17 +116,18 @@ extension FloatViewManager: UINavigationControllerDelegate {
 
 extension FloatViewManager: FloatViewDelegate {
     func floatViewBeginMove(floatView _: FloatBallView, point _: CGPoint) {
-        UIView.animate(
-            withDuration: 0.2,
-            animations: {
-                self.ballRedCancelView.frame = CGRect(
-                    x: DSFloatChat.screenWidth - DSFloatChat.bottomViewFloatWidth,
-                    y: DSFloatChat.screenHeight - DSFloatChat.bottomViewFloatHeight,
-                    width: DSFloatChat.bottomViewFloatWidth,
-                    height: DSFloatChat.bottomViewFloatHeight
-                )
-            }
-        ) { _ in }
+        
+        UIView.animate(withDuration: 0.2) {
+            self.ballRedCancelView.frame = CGRect(
+                x: DSFloatChat.screenWidth - DSFloatChat.bottomViewFloatWidth,
+                y: DSFloatChat.screenHeight - DSFloatChat.bottomViewFloatHeight,
+                width: DSFloatChat.bottomViewFloatWidth,
+                height: DSFloatChat.bottomViewFloatHeight
+            )
+        } completion: { _ in
+            
+        }
+
     }
 
     func floatViewMoved(floatView _: FloatBallView, point _: CGPoint) {
@@ -170,16 +166,15 @@ extension FloatViewManager: FloatViewDelegate {
             ballView.show = false
         }
 
-        UIView.animate(
-            withDuration: DSFloatChat.animationCancelMoveDuration,
-            animations: {
-                self.ballRedCancelView.frame = .init(
-                    x: DSFloatChat.screenWidth,
-                    y: DSFloatChat.screenHeight,
-                    width: DSFloatChat.bottomViewFloatWidth,
-                    height: DSFloatChat.bottomViewFloatHeight
-                )
-            }
-        ) { _ in }
+        UIView.animate(withDuration: DSFloatChat.animationCancelMoveDuration) {
+            self.ballRedCancelView.frame = .init(
+                x: DSFloatChat.screenWidth,
+                y: DSFloatChat.screenHeight,
+                width: DSFloatChat.bottomViewFloatWidth,
+                height: DSFloatChat.bottomViewFloatHeight
+            )
+        } completion: { _ in
+            
+        }
     }
 }

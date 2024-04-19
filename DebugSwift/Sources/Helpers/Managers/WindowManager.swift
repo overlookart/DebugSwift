@@ -30,7 +30,8 @@ enum WindowManager {
         window.isHidden = false
         return window
     }()
-
+    
+    /// 呈现 debug 控制器
     static func presentDebugger() {
         guard !FloatViewManager.isShowingDebuggerView else { return }
         FloatViewManager.isShowingDebuggerView = true
@@ -40,10 +41,7 @@ enum WindowManager {
             // Remove keyboard, if opened.
             UIWindow.keyWindow?.endEditing(true)
 
-            rootNavigation?.pushViewController(
-                viewController,
-                animated: true
-            )
+            rootNavigation?.pushViewController( viewController, animated: true)
             UIApplication.shared.endIgnoringInteractionEvents()
         }
     }
@@ -119,10 +117,8 @@ final class CustomWindow: UIWindow {
         if WindowManager.isSelectingWindow { return true }
 
         let ballView = FloatViewManager.shared.ballView
-        if
-            ballView.point(inside: convert(point, to: ballView), with: event) ||
-            FloatViewManager.isShowingDebuggerView
-        {
+        if ballView.point(inside: convert(point, to: ballView), with: event) ||
+            FloatViewManager.isShowingDebuggerView {
             return true
         }
 

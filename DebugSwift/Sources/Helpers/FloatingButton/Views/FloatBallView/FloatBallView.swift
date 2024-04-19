@@ -4,7 +4,7 @@
 //
 //  Created by Matheus Gois on 2018/6/14.
 //  Copyright © 2023 apple. All rights reserved.
-//
+//  悬浮球
 
 import UIKit
 
@@ -16,8 +16,11 @@ protocol FloatViewDelegate: NSObjectProtocol {
 
 class FloatBallView: UIView {
     weak var delegate: FloatViewDelegate?
+    
+    /// 已点击悬浮球
     var ballDidSelect: (() -> Void)?
 
+    /// 悬浮球开始的位置
     fileprivate var beginPoint: CGPoint?
 
     var changeStatusInNextTransaction = true
@@ -155,10 +158,7 @@ extension FloatBallView {
             label.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
 
-        let animator = UIViewPropertyAnimator(
-            duration: 2,
-            dampingRatio: 0.7
-        ) {
+        let animator = UIViewPropertyAnimator(duration: 2, dampingRatio: 0.7) {
             label.transform = CGAffineTransform(translationX: 0, y: -40)
             label.alpha = 0
         }
@@ -174,10 +174,13 @@ extension FloatBallView {
 }
 
 extension FloatBallView {
+    
+    /// 悬浮球点击事件
     @objc private func tapGesture() {
         ballDidSelect?()
     }
-
+    
+    /// 悬浮球长按事件
     @objc private func handleLongPress() {
         WindowManager.presentViewDebugger()
     }
@@ -271,13 +274,11 @@ extension FloatBallView {
                 height: DSFloatChat.ballRect.height
             )
         }
-
-        UIView.animate(
-            withDuration: DSFloatChat.animationDuration,
-            animations: {
-                self.frame = destinationFrame
-            }
-        ) { _ in
+        
+        UIView.animate(withDuration: DSFloatChat.animationDuration) {
+            self.frame = destinationFrame
+        } completion: { _ in
+            
         }
     }
 }
