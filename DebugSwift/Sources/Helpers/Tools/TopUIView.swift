@@ -14,12 +14,9 @@ class TopLevelViewWrapper: UIView {
             showWidgetWindow()
         }
 
-        UIView.animate(
-            withDuration: 0.35,
-            animations: {
-                self.alpha = newValue ? 1.0 : 0.0
-            }
-        ) { _ in
+        UIView.animate(withDuration: 0.35) {
+            self.alpha = newValue ? 1.0 : 0.0
+        } completion: { _ in
             self.isHidden = !newValue
             if !newValue {
                 self.removeWidgetWindow()

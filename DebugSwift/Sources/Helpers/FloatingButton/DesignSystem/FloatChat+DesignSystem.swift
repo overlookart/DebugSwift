@@ -12,7 +12,9 @@ enum DSFloatChat {
     static let animationDuration = 0.3
     static let animationCancelMoveDuration = 0.35
 
+    /// 屏幕的宽度
     static let screenWidth: CGFloat = UIScreen.main.bounds.width
+    /// 屏幕的高度
     static let screenHeight: CGFloat = UIScreen.main.bounds.height
 
     // Bottom black view
@@ -20,16 +22,10 @@ enum DSFloatChat {
     static let bottomViewFloatHeight: CGFloat = 160
     static let minX = screenWidth - bottomViewFloatWidth
     static let minY = screenHeight - bottomViewFloatHeight
-    static let ballViewSize = CGSize(
-        width: 18,
-        height: 18
-    )
-    static let ballRect = CGRect(
-        x: .zero,
-        y: screenHeight * 0.3,
-        width: 40,
-        height: 40
-    )
+    /// 悬浮球视图的大小
+    static let ballViewSize = CGSize(width: 18,height: 18)
+    /// 悬浮球位置和大小
+    static let ballRect = CGRect(x: .zero, y: screenHeight * 0.3, width: 40, height: 40)
     static let padding: CGFloat = .zero
     static let topSafeAreaPadding = WindowManager.window.safeAreaInsets.top
     static let bottomSafeAreaPadding = WindowManager.window.safeAreaInsets.bottom

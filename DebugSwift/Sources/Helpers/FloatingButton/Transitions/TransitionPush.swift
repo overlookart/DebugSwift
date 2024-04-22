@@ -11,22 +11,15 @@ import UIKit
 final class TransitionPush: NSObject, UIViewControllerAnimatedTransitioning {
     var transitionCtx: UIViewControllerContextTransitioning?
 
-    func transitionDuration(using _: UIViewControllerContextTransitioning?)
-        -> TimeInterval {
+    func transitionDuration(using _: UIViewControllerContextTransitioning?) -> TimeInterval {
         DSFloatChat.animationDuration
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         transitionCtx = transitionContext
 
-        guard
-            let fromVC = transitionContext.viewController(
-                forKey: UITransitionContextViewControllerKey.from
-            ),
-            let toVC = transitionContext.viewController(
-                forKey: UITransitionContextViewControllerKey.to
-            )
-        else {
+        guard let fromVC = transitionContext.viewController( forKey: UITransitionContextViewControllerKey.from),
+              let toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) else {
             return
         }
 
@@ -35,14 +28,8 @@ final class TransitionPush: NSObject, UIViewControllerAnimatedTransitioning {
         containerView.addSubview(toVC.view)
 
         let ballRect = FloatViewManager.shared.ballView.frame
-        let startAnimationPath = UIBezierPath(
-            roundedRect: ballRect,
-            cornerRadius: ballRect.size.height / 2
-        )
-        let endAnimationPath = UIBezierPath(
-            roundedRect: toVC.view.bounds,
-            cornerRadius: 0.1
-        )
+        let startAnimationPath = UIBezierPath(roundedRect: ballRect, cornerRadius: ballRect.size.height / 2)
+        let endAnimationPath = UIBezierPath(roundedRect: toVC.view.bounds, cornerRadius: 0.1)
 
         let maskLayer = CAShapeLayer()
         maskLayer.path = endAnimationPath.cgPath
